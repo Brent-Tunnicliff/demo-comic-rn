@@ -1,1 +1,1 @@
-export * from './getComic';
+export * from './get-comic';
