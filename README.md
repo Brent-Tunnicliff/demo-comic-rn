@@ -7,6 +7,7 @@ This API only supports getting one commic at a time, so need to plan out smart w
 ## Setup
 
 Install React Native dependancies found [here](https://reactnative.dev/docs/environment-setup?guide=native&platform=ios#installing-dependencies).
+Make sure you have the same version of ruby installed as listed in the `.ruby_version` file. [RVM](https://rvm.io) is the recomended ruby manager.
 Then run the following to get the project ready for running:
     - `yarn install`
     - `bundle install`
