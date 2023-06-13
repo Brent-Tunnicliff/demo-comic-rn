@@ -1,10 +1,10 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { comic } from '../../model';
+import { Comic } from '../../model';
 import { isNil, toNumber } from 'lodash';
 
 // We are using this custom local storage cache logic to make sure any comic is only ever called the one time. The data should never change, so don't need to worry about 
 
-export const getCachedComic = async (comicNumber: number | 'latest'): Promise<comic | undefined> => {
+export const getCachedComic = async (comicNumber: number | 'latest'): Promise<Comic | undefined> => {
     const key = comicNumber === 'latest' 
         ? (await getLatestNumber())?.toString()
         : comicNumber.toString();
@@ -21,7 +21,7 @@ export const getCachedComic = async (comicNumber: number | 'latest'): Promise<co
     return JSON.parse(comic);
 };
 
-export const setComicCache = async (comic: comic) => {
+export const setComicCache = async (comic: Comic) => {
     const key = comic.number.toString();
     const value = JSON.stringify(comic);
     await AsyncStorage.setItem(key, value);

@@ -1,11 +1,11 @@
 import { isNil } from 'lodash';
-import { comic } from '../model';
+import { Comic } from '../model';
 import { getCachedComic, setComicCache } from './helper/cache';
 
 const baseUrl = 'https://xkcd.com';
 const getComicPath = 'info.0.json';
 
-export const getLatestComic = async (): Promise<comic> => {
+export const getLatestComic = async (): Promise<Comic> => {
     const latestCached = await getCachedComic('latest');
     if (!isNil(latestCached) && isComicToday(latestCached)) {
         return latestCached;
@@ -24,7 +24,7 @@ export const getLatestComic = async (): Promise<comic> => {
         });
 };
 
-export const getComic = async (props: { number: number }): Promise<comic> => {
+export const getComic = async (props: { number: number }): Promise<Comic> => {
     const cachedComic = await getCachedComic(props.number);
     if (!isNil(cachedComic)) {
         return cachedComic;
@@ -35,7 +35,7 @@ export const getComic = async (props: { number: number }): Promise<comic> => {
 };
 
 // API docs for getting comic = https://any-api.com/xkcd_com/xkcd_com/docs/API_Description
-const performRequest = async (url: string): Promise<comic> => {
+const performRequest = async (url: string): Promise<Comic> => {
     return await fetch(url)
         .then((response) => {
             const comic = mapComic(response);
@@ -44,7 +44,7 @@ const performRequest = async (url: string): Promise<comic> => {
         })
 };
 
-const mapComic = (response: any): comic => {
+const mapComic = (response: any): Comic => {
     const day = response.day;
     const monthIndex = response.month - 1;
     const year = response.year;
@@ -59,7 +59,7 @@ const mapComic = (response: any): comic => {
     };
 };
 
-const isComicToday = (comic: comic): boolean => {
+const isComicToday = (comic: Comic): boolean => {
     const now = new Date();
     // Not perfect, but checking for today's local date is probably good enough.
     return comic.date.getFullYear() === now.getFullYear()

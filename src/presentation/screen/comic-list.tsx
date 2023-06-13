@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { comic } from "../../data/model";
+import { Comic } from "../../data/model";
 import { getLatestComic } from "../../data/client";
 import { isNil } from "lodash";
 import { Box } from "native-base";
@@ -12,14 +12,14 @@ export const ComicList = () => {
 };
 
 type GetLatestComicHookResult = {
-    comic?: comic,
+    comic?: Comic,
     error?: any,
     isLoading: boolean,
     retry: () => void
 };
 
 const getLatestComicHook = (): GetLatestComicHookResult => {
-    const [comic, setComic] = useState<comic | undefined>(undefined);
+    const [comic, setComic] = useState<Comic | undefined>(undefined);
     const [error, setError] = useState<Error | undefined>(undefined);
     const [isLoading, setIsLoading] = useState(false);
 

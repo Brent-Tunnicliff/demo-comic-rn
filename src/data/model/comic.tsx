@@ -1,4 +1,4 @@
-export type comic = {
+export type Comic = {
     alt: string,
     date: Date,
     image: string,
