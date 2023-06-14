@@ -4,10 +4,11 @@ import { isNil, toNumber } from 'lodash';
 
 // We are using this custom local storage cache logic to make sure any comic is only ever called the one time. The data should never change, so don't need to worry about 
 
-export const getCachedComic = async (comicNumber: number | 'latest'): Promise<Comic | undefined> => {
-    const key = comicNumber === 'latest' 
-        ? (await getLatestNumber())?.toString()
-        : comicNumber.toString();
+type GetCachedComicInput = string | 'latest';
+export const getCachedComic = async (comicId: GetCachedComicInput): Promise<Comic | undefined> => {
+    let key = comicId === 'latest'
+        ? await getLatestComicId()
+        : comicId;
 
     if (isNil(key)) {
         return undefined;
@@ -21,28 +22,36 @@ export const getCachedComic = async (comicNumber: number | 'latest'): Promise<Co
     return JSON.parse(comic);
 };
 
-export const setComicCache = async (comic: Comic) => {
+export const setComicCache = async (comic: Comic): Promise<void> => {
     const key = comic.number.toString();
     const value = JSON.stringify(comic);
     await AsyncStorage.setItem(key, value);
 
     // If it is later than our previous stored 'latest', then replace it there too.
-    const latestComicNumber = await getLatestNumber();
-    if (isNil(latestComicNumber) || latestComicNumber < comic.number) {
-        await setLatestNumber(comic.number);
+    const latestComic = await getLatestComicId()
+        .then((comicId) => {
+            if (isNil(comicId)) {
+                return undefined;
+            }
+
+            return getCachedComic(comicId);
+        });
+
+    if (isNil(latestComic) || latestComic.number < comic.number) {
+        await setLatestComicId(comic.id);
     }
 };
 
 const latestKey = 'LATEST_COMIC';
-const getLatestNumber = async () => {
-    const latest = await AsyncStorage.getItem(latestKey);
-    if (isNil(latest)) {
+const getLatestComicId = async (): Promise<string | undefined> => {
+    const latestComicId = await AsyncStorage.getItem(latestKey);
+    if (isNil(latestComicId)) {
         return undefined;
     }
 
-    return toNumber(latest);
+    return latestComicId;
 };
 
-const setLatestNumber = async (value: number) => {
-    await AsyncStorage.setItem(latestKey, value.toString());
+const setLatestComicId = async (comicId: string) => {
+    await AsyncStorage.setItem(latestKey, comicId);
 };

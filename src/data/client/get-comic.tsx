@@ -24,13 +24,13 @@ export const getLatestComic = async (): Promise<Comic> => {
         });
 };
 
-export const getComic = async (props: { number: number }): Promise<Comic> => {
-    const cachedComic = await getCachedComic(props.number);
+export const getComic = async (props: { id: string }): Promise<Comic> => {
+    const cachedComic = await getCachedComic(props.id);
     if (!isNil(cachedComic)) {
         return cachedComic;
     };
 
-    const url = `${baseUrl}/${props.number}/${getComicPath}`;
+    const url = `${baseUrl}/${props.id}/${getComicPath}`;
     return await performRequest(url);
 };
 
@@ -49,12 +49,14 @@ const mapComic = (response: any): Comic => {
     const monthIndex = response.month - 1;
     const year = response.year;
     const date: Date = new Date(year, monthIndex, day);
+    const number: number = response.num;
 
     return {
         alt: response.alt,
         date: date,
+        id: number.toString(),
         image: response.img,
-        number: response.num,
+        number,
         title: response.title,
     };
 };
