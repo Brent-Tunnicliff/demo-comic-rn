@@ -7,7 +7,7 @@
 
 import { NativeBaseProvider } from 'native-base';
 import React from 'react';
-import Navigator from './navigator';
+import Navigator from './Navigator';
 
 export default () => (
   <NativeBaseProvider>

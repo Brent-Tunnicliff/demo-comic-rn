@@ -2,18 +2,41 @@ import { useEffect, useState } from "react";
 import { Comic } from "../../data/model";
 import { getLatestComic } from "../../data/client";
 import { isNil } from "lodash";
-import { Box } from "native-base";
+import LoadingScreen from "./helper/LoadingScreen";
+import ErrorScreen from "./helper/ErrorScreen";
+import View from "../component/common/View";
+import ComicsList from "../component/comic/ComicsList";
+import { ScreenProps } from "../Navigator";
 
-export const ComicList = () => {
+export default ({ navigation, route }: ScreenProps<'Home'>) => {
     const getLatestComicResult = getLatestComicHook();
 
-    // TODO: Implement view.
-    return <Box />;
+    if (getLatestComicResult.isLoading) {
+        return <LoadingScreen />;
+    };
+
+    if (isNil(getLatestComicResult.comic)) {
+        const error = getLatestComicResult.error;
+        return (
+            <ErrorScreen
+                onRetry = { () => getLatestComicResult.retry() }
+                message = { `Loading comics failed with error ${ isNil(error) ? 'unknown' : error.message }` }
+            />
+        );
+    };
+
+    return (
+        <View
+            flex = { 1 }
+        >
+            <ComicsList latestComic = { getLatestComicResult.comic } />
+        </View>
+    );
 };
 
 type GetLatestComicHookResult = {
     comic?: Comic,
-    error?: any,
+    error?: Error,
     isLoading: boolean,
     retry: () => void
 };

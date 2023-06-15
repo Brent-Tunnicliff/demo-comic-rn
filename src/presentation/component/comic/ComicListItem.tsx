@@ -5,22 +5,21 @@ import VStack from "../common/VStack";
 import Pressable from "../common/Pressable";
 import Text from "../common/Text";
 import Image from "../common/Image";
-import { ListItemProps } from "../common/list-item/ListItem";
 
-export type ComicListItemProps = ListItemProps & {
+export type ComicListItemProps = {
     comic: Comic;
     onPress: () => void;
 };
 
 export default (props: ComicListItemProps) => (
-    <Pressable onPress = { () => props.onPress() }>
+    <Pressable>
         <HStack { ...defaultPaddingProps } >
             <Image
                 alt = { props.comic.alt } 
                 source = {{ uri: props.comic.image, cache: 'force-cache' }} 
             />
 
-            <VStack flex = { 1 }>
+            <VStack flex = { 1 } >
                 <Text>{ 
                     `${props.comic.number}: ${props.comic.title}` 
                 }</Text>
