@@ -1,12 +1,10 @@
 import { Comic } from "../../../data/model";
-import ComicRow from "./ComicListItem";
 import { ListRenderItemInfo } from "react-native";
 import { useState } from "react";
 import { isNil, last, toNumber } from "lodash";
-import FlatList from "../common/FlatList";
-import LoadingListItem from "../common/list-item/LoadingListItem";
-import ErrorListItem from "../common/list-item/ErrorListItem";
 import { getComic } from "../../../data/client";
+import { ErrorListItem, FlatList, LoadingListItem } from "../common";
+import { ComicListItem } from "./comic-list-item";
 
 type RowItem = {
     comicId: string;
@@ -19,7 +17,7 @@ export type ComicsListProps = {
     latestComic: Comic;
 };
 
-export default (props: ComicsListProps) => {
+export const ComicsList = (props: ComicsListProps) => {
     const [rows, setRows] = useState<RowItem[]>([{
         comicId: props.latestComic.id,
         comic: props.latestComic,
@@ -90,7 +88,7 @@ const getRow = (rowItem: RowItem, onPress: (comic: Comic) => void) => {
 
     const comic = rowItem.comic;
     if (!isNil(comic)) {
-        return <ComicRow comic = { comic } onPress = { () => onPress(comic) } />;
+        return <ComicListItem comic = { comic } onPress = { () => onPress(comic) } />;
     };
 
     const errorMessage = 'Failed to load comic with error: ' + (isNil(rowItem.error) ? 'unknown' : rowItem.error?.message);

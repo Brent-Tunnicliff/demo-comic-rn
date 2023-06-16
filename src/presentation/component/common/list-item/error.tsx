@@ -1,13 +1,11 @@
 import { defaultPaddingProps } from "../../helper/constants";
-import Pressable, { PressableProps } from "../Pressable";
-import View from "../View";
-import Text from "../Text";
+import { Pressable, PressableProps, Text, View } from "..";
 
 export type ErrorListItemProps = PressableProps & {
     message: string
 };
 
-export default (props: ErrorListItemProps) => (
+export const ErrorListItem = (props: ErrorListItemProps) => (
     <Pressable { ...props } >
         <View 
             { ...defaultPaddingProps }

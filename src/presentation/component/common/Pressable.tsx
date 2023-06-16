@@ -1,10 +1,10 @@
-import { IPressableProps, Pressable } from "native-base";
+import { IPressableProps, Pressable as NBPressable } from "native-base";
 import { pressableMinHeight } from "../helper/constants";
 
 export type PressableProps = IPressableProps;
 
-export default (props: PressableProps) => (
-    <Pressable 
+export const Pressable = (props: PressableProps) => (
+    <NBPressable 
         { ...props }
         minHeight = { pressableMinHeight }
     />

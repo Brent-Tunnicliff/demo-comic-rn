@@ -2,6 +2,6 @@ import { Box, IBoxProps } from "native-base";
 
 export type ViewProps = IBoxProps
 
-export default (props: ViewProps) => (
+export const View = (props: ViewProps) => (
     <Box { ...props } />
 );

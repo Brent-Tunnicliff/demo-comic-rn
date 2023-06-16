@@ -1,17 +1,13 @@
 import { Comic } from "../../../data/model";
+import { HStack, Image, Pressable, Text, VStack } from "../common";
 import { defaultPaddingProps } from "../helper/constants";
-import HStack from "../common/HStack";
-import VStack from "../common/VStack";
-import Pressable from "../common/Pressable";
-import Text from "../common/Text";
-import Image from "../common/Image";
 
 export type ComicListItemProps = {
     comic: Comic;
     onPress: () => void;
 };
 
-export default (props: ComicListItemProps) => (
+export const ComicListItem = (props: ComicListItemProps) => (
     <Pressable>
         <HStack { ...defaultPaddingProps } >
             <Image

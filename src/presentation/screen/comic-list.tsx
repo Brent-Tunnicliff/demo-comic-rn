@@ -2,13 +2,12 @@ import { useEffect, useState } from "react";
 import { Comic } from "../../data/model";
 import { getLatestComic } from "../../data/client";
 import { isNil } from "lodash";
-import LoadingScreen from "./helper/LoadingScreen";
-import ErrorScreen from "./helper/ErrorScreen";
-import View from "../component/common/View";
-import ComicsList from "../component/comic/ComicsList";
 import { ScreenProps } from "../Navigator";
+import { View } from "../component/common";
+import { ComicsList } from "../component/comic";
+import { ErrorScreen, LoadingScreen } from "./helper";
 
-export default ({ navigation, route }: ScreenProps<'Home'>) => {
+export const ComicListScreen = ({ navigation, route }: ScreenProps<'Home'>) => {
     const getLatestComicResult = getLatestComicHook();
 
     if (getLatestComicResult.isLoading) {

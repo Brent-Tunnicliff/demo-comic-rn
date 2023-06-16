@@ -1,7 +1,7 @@
-import { ITextProps, Text } from "native-base";
+import { ITextProps, Text as NBText } from "native-base";
 
 export type TextProps = ITextProps;
 
-export default (props: TextProps) => (
-    <Text { ...props } />
+export const Text = (props: TextProps) => (
+    <NBText { ...props } />
 );

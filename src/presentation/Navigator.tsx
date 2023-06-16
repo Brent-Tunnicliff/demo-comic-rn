@@ -1,6 +1,6 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { NativeStackScreenProps, createNativeStackNavigator } from '@react-navigation/native-stack';
-import ComicListScreen from './screen/ComicListScreen';
+import { ComicListScreen } from './screen';
 
 type Screens = 'Home';
 type StackParamList = {
@@ -11,7 +11,7 @@ const Stack = createNativeStackNavigator<StackParamList>();
 
 export type ScreenProps<ScreenType extends Screens> = NativeStackScreenProps<StackParamList, ScreenType>;
 
-export default () => (
+export const Navigator = () => (
     <NavigationContainer>
         <Stack.Navigator initialRouteName="Home">
             <Stack.Screen

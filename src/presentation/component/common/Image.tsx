@@ -1,7 +1,7 @@
-import { IImageProps, Image } from "native-base";
+import { IImageProps, Image as NBImage } from "native-base";
 
 export type ImageProps = IImageProps;
 
-export default (props: ImageProps) => (
-    <Image { ...props } />
+export const Image = (props: ImageProps) => (
+    <NBImage { ...props } />
 );

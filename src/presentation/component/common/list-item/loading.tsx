@@ -1,14 +1,12 @@
 import { isNil } from "lodash";
 import { defaultPaddingProps, pressableMinHeight } from "../../helper/constants";
-import LoadingSpinner from "../LoadingSpinner";
-import Text from "../Text";
-import VStack from "../VStack";
+import { LoadingSpinner, Text, VStack } from "..";
 
 export type LoadingListItemProps = {
     message?: string
 }
 
-export default (props: LoadingListItemProps) => (
+export const LoadingListItem = (props: LoadingListItemProps) => (
     <VStack
         { ...defaultPaddingProps }
         minHeight = { pressableMinHeight }
