@@ -1,4 +1,4 @@
-import { Button, Text, VStack, View } from "../../component/common";
+import { Button, PaddedView, Text, VStack, View } from "../../component/common";
 
 export type ErrorScreenProps = {
     message: string;
@@ -6,7 +6,7 @@ export type ErrorScreenProps = {
 };
 
 export const ErrorScreen = (props: ErrorScreenProps) => (
-    <View
+    <PaddedView
         flex = { 1 }
         alignContent = { 'center' }
     >
@@ -14,5 +14,5 @@ export const ErrorScreen = (props: ErrorScreenProps) => (
             <Text>{ props.message }</Text>
             <Button onPress = { () => props.onRetry() } >Retry</Button>
         </VStack>
-    </View>
+    </PaddedView>
 );

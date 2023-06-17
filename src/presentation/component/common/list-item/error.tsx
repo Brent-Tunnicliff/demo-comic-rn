@@ -1,5 +1,4 @@
-import { defaultPaddingProps } from "../../helper/constants";
-import { Pressable, PressableProps, Text, View } from "..";
+import { PaddedView, Pressable, PressableProps, Text } from "..";
 
 export type ErrorListItemProps = PressableProps & {
     message: string
@@ -7,11 +6,10 @@ export type ErrorListItemProps = PressableProps & {
 
 export const ErrorListItem = (props: ErrorListItemProps) => (
     <Pressable { ...props } >
-        <View 
-            { ...defaultPaddingProps }
+        <PaddedView 
             backgroundColor = { 'red.100' }
         >
             <Text>{ props.message }</Text>
-        </View>
+        </PaddedView>
     </Pressable>
 );

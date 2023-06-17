@@ -1,11 +1,10 @@
-import { LoadingSpinner, View } from "../../component/common";
-
+import { LoadingSpinner, PaddedView, View } from "../../component/common";
 
 export const LoadingScreen = () => (
-    <View
+    <PaddedView
         flex = { 1 }
         alignContent = { 'center' }
     >
         <LoadingSpinner />
-    </View>
+    </PaddedView>
 );

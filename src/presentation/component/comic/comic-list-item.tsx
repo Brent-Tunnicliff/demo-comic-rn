@@ -1,6 +1,6 @@
+import { View } from "native-base";
 import { Comic } from "../../../data/model";
-import { HStack, Image, Pressable, Text, VStack } from "../common";
-import { defaultPaddingProps } from "../helper/constants";
+import { HStack, Image, PaddedView, Pressable, Text, VStack } from "../common";
 
 export type ComicListItemProps = {
     comic: Comic;
@@ -9,21 +9,23 @@ export type ComicListItemProps = {
 
 export const ComicListItem = (props: ComicListItemProps) => (
     <Pressable>
-        <HStack { ...defaultPaddingProps } >
-            <Image
-                alt = { props.comic.alt } 
-                source = {{ uri: props.comic.image, cache: 'force-cache' }} 
-            />
+        <PaddedView>
+            <HStack>
+                <Image
+                    alt = { props.comic.alt } 
+                    source = {{ uri: props.comic.image, cache: 'force-cache' }} 
+                />
 
-            <VStack flex = { 1 } >
-                <Text>{ 
-                    `${props.comic.number}: ${props.comic.title}` 
-                }</Text>
+                <VStack flex = { 1 } >
+                    <Text>{ 
+                        `${props.comic.number}: ${props.comic.title}` 
+                    }</Text>
 
-                <Text sub = { true } >{ 
-                    props.comic.date.toLocaleDateString()
-                }</Text>
-            </VStack>
-        </HStack>
+                    <Text sub = { true } >{ 
+                        props.comic.date.toLocaleDateString()
+                    }</Text>
+                </VStack>
+            </HStack>
+        </PaddedView>
     </Pressable>
 );
