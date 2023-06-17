@@ -1,6 +1,7 @@
 import { isNil } from 'lodash';
 import { Comic } from '../model';
 import { getCachedComic, setComicCache } from './helper/cache';
+import { fetchWithLogs } from './helper/fetch';
 
 const baseUrl = 'https://xkcd.com';
 const getComicPath = 'info.0.json';
@@ -36,7 +37,7 @@ export const getComic = async (props: { id: string }): Promise<Comic> => {
 
 // API docs for getting comic = https://any-api.com/xkcd_com/xkcd_com/docs/API_Description
 const performRequest = async (url: string): Promise<Comic> => {
-    return await fetch(url)
+    return await fetchWithLogs(url)
         .then((response) => {
             const comic = mapComic(response);
             setComicCache(comic);
