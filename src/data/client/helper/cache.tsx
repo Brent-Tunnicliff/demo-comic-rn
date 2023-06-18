@@ -25,15 +25,11 @@ export const getCachedComic = async (comicId: GetCachedComicInput): Promise<Comi
 
     const comic: Comic = JSON.parse(comicJson);
     logger.info(`returning cached comic ${key}`, { details: comic });
-    return {
-        ...comic,
-        // the date format is not automatically parsed.
-        date: new Date(comic.date)
-    };
+    return comic;
 };
 
 export const setComicCache = async (comic: Comic): Promise<void> => {
-    const key = comic.number.toString();
+    const key = comic.id;
     const value = JSON.stringify(comic);
     logger.info(`setting cache "${key}"="${value}"`);
     await AsyncStorage.setItem(key, value);

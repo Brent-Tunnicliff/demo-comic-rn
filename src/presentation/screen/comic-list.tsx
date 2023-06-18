@@ -3,7 +3,7 @@ import { Comic } from "../../data/model";
 import { getLatestComic } from "../../data/client";
 import { isNil } from "lodash";
 import { ScreenProps } from "../Navigator";
-import { View } from "../component/common";
+import { FullScreenView } from "../component/common";
 import { ComicsList } from "../component/comic";
 import { ErrorScreen, LoadingScreen } from "./helper";
 
@@ -24,13 +24,17 @@ export const ComicListScreen = ({ navigation, route }: ScreenProps<'Home'>) => {
         );
     };
 
+    const onComicSelect = (comic: Comic) => {
+        navigation.navigate('ComicViewer', { comic });
+    };
+
     return (
-        <View
-            flex = { 1 }
-            safeArea
-        >
-            <ComicsList latestComic = { getLatestComicResult.comic } />
-        </View>
+        <FullScreenView isNavBarHidden = { true } >
+            <ComicsList 
+                latestComic = { getLatestComicResult.comic }
+                onComicSelect = { onComicSelect }
+            />
+        </FullScreenView>
     );
 };
 

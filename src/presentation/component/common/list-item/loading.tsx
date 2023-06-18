@@ -13,7 +13,7 @@ export const LoadingListItem = (props: LoadingListItemProps) => (
             alignContent = { 'center' }
         >
             <LoadingSpinner />
-            { isNil(props.message) ? undefined : <Text>{ props.message }</Text> }
+            { isNil(props.message) ? undefined : <Text textAlign = { 'center' }>{ props.message }</Text> }
         </VStack>
     </PaddedView>
 );

@@ -1,5 +1,5 @@
 import { isNil } from 'lodash';
-import { Comic } from '../model';
+import { Comic, parseComicDate } from '../model';
 import { getCachedComic, setComicCache } from './helper/cache';
 import { fetchWithLogs } from './helper/fetch';
 import { logger } from '../../logger';
@@ -49,26 +49,25 @@ const performRequest = async (url: string): Promise<Comic> => {
 };
 
 const mapComic = (response: any): Comic => {
-    const day = response.day;
-    const monthIndex = response.month - 1;
-    const year = response.year;
-    const date: Date = new Date(year, monthIndex, day);
-    const number: number = response.num;
-
     return {
         alt: response.alt,
-        date: date,
-        id: number.toString(),
+        date: {
+            day: response.day,
+            month: response.month,
+            year: response.year
+        },
+        id: response.num.toString(),
         image: response.img,
-        number,
+        number: response.num,
         title: response.title,
     };
 };
 
 const isComicToday = (comic: Comic): boolean => {
     const now = new Date();
+    const comicDate = parseComicDate(comic);
     // Not perfect, but checking for today's local date is probably good enough.
-    return comic.date.getFullYear() === now.getFullYear()
-        && comic.date.getMonth() === now.getMonth()
-        && comic.date.getDate() === now.getDate();
+    return comicDate.getFullYear() === now.getFullYear()
+        && comicDate.getMonth() === now.getMonth()
+        && comicDate.getDate() === now.getDate();
 };

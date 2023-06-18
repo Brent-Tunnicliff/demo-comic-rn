@@ -5,6 +5,7 @@ import { isNil, last, toNumber } from "lodash";
 import { getComic } from "../../../data/client";
 import { ErrorListItem, FlatList, LoadingListItem, View } from "../common";
 import { ComicListItem } from "./comic-list-item";
+import { logger } from "../../../logger";
 
 type RowItem = {
     comicId: string;
@@ -15,6 +16,7 @@ type RowItem = {
 
 export type ComicsListProps = {
     latestComic: Comic;
+    onComicSelect: (comic: Comic) => void
 };
 
 export const ComicsList = (props: ComicsListProps) => {
@@ -60,12 +62,13 @@ export const ComicsList = (props: ComicsListProps) => {
 
     const renderItem = (info: ListRenderItemInfo<RowItem>) => {
         return getRow(info.item, (comic) => {
-            // TODO: hanndle navigation.
+            logger.info(`comic ${comic.id} selected`);
+            props.onComicSelect(comic);
         });
-    }
+    };
 
     const listFooterComponent = () => {
-        return <View height = { 16 } />
+        return <View height = { 16 } />;
     };
 
     return (
@@ -76,7 +79,7 @@ export const ComicsList = (props: ComicsListProps) => {
             onEndReached = { onEndReached }
             renderItem = { renderItem }
         />
-    )
+    );
 };
 
 const getRow = (rowItem: RowItem, onPress: (comic: Comic) => void) => {
