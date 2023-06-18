@@ -3,7 +3,7 @@ import { ListRenderItemInfo } from "react-native";
 import { useState } from "react";
 import { isNil, last, toNumber } from "lodash";
 import { getComic } from "../../../data/client";
-import { ErrorListItem, FlatList, LoadingListItem } from "../common";
+import { ErrorListItem, FlatList, LoadingListItem, View } from "../common";
 import { ComicListItem } from "./comic-list-item";
 
 type RowItem = {
@@ -65,9 +65,7 @@ export const ComicsList = (props: ComicsListProps) => {
     }
 
     const listFooterComponent = () => {
-        if (isLastRowLoading) {
-            return <LoadingListItem />;
-        }
+        return <View height = { 16 } />
     };
 
     return (

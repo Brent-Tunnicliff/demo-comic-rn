@@ -17,7 +17,7 @@ export const Navigator = () => (
             <Stack.Screen
                 name = 'Home'
                 component = { ComicListScreen }
-                options = {{ title: '' }}
+                options = {{ headerShown: false }}
             />
         </Stack.Navigator>
     </NavigationContainer>

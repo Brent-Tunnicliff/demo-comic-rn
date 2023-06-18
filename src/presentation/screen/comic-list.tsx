@@ -27,6 +27,7 @@ export const ComicListScreen = ({ navigation, route }: ScreenProps<'Home'>) => {
     return (
         <View
             flex = { 1 }
+            safeArea
         >
             <ComicsList latestComic = { getLatestComicResult.comic } />
         </View>

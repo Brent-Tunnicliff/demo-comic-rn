@@ -2,6 +2,7 @@ import { isNil } from 'lodash';
 import { Comic } from '../model';
 import { getCachedComic, setComicCache } from './helper/cache';
 import { fetchWithLogs } from './helper/fetch';
+import { logger } from '../../logger';
 
 const baseUrl = 'https://xkcd.com';
 const getComicPath = 'info.0.json';
@@ -9,6 +10,7 @@ const getComicPath = 'info.0.json';
 export const getLatestComic = async (): Promise<Comic> => {
     const latestCached = await getCachedComic('latest');
     if (!isNil(latestCached) && isComicToday(latestCached)) {
+        logger.info('getting latest comic returning cache');
         return latestCached;
     }
 
@@ -28,6 +30,7 @@ export const getLatestComic = async (): Promise<Comic> => {
 export const getComic = async (props: { id: string }): Promise<Comic> => {
     const cachedComic = await getCachedComic(props.id);
     if (!isNil(cachedComic)) {
+        logger.info(`returning cached comic ${props.id}`);
         return cachedComic;
     };
 
