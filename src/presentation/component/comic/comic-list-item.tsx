@@ -7,25 +7,28 @@ export type ComicListItemProps = {
     onPress: () => void;
 };
 
-export const ComicListItem = (props: ComicListItemProps) => (
-    <Pressable>
-        <PaddedView>
-            <HStack>
-                <Image
-                    alt = { props.comic.alt } 
-                    source = {{ uri: props.comic.image, cache: 'force-cache' }} 
-                />
+export const ComicListItem = (props: ComicListItemProps) => {
+    const title = `${props.comic.number}: ${props.comic.title}`;
+    const subTitle = props.comic.date.toLocaleDateString();
+    const imageUri = props.comic.image;
 
-                <VStack flex = { 1 } >
-                    <Text>{ 
-                        `${props.comic.number}: ${props.comic.title}` 
-                    }</Text>
+    return (
+        <Pressable>
+            <PaddedView>
+                <HStack alignItems = { 'center' } >
+                    <Image
+                        alt = { props.comic.alt }
+                        source = {{ uri: imageUri, cache: 'force-cache' }}
+                        style = {{ aspectRatio: 1 }}
+                        width = { '33%' }
+                    />
 
-                    <Text sub = { true } >{ 
-                        props.comic.date.toLocaleDateString()
-                    }</Text>
-                </VStack>
-            </HStack>
-        </PaddedView>
-    </Pressable>
-);
+                    <VStack flex = { 1 } >
+                        <Text isTruncated = { true } >{ title }</Text>
+                        <Text isTruncated = { true } sub = { true } >{ subTitle }</Text>
+                    </VStack>
+                </HStack>
+            </PaddedView>
+        </Pressable>
+    );
+};
